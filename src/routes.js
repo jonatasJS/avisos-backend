@@ -20,7 +20,7 @@ routes.post("/messanges", async (req, res) => {
     return res.json(messange);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: err });
+    return res.status(500).json({ error: err, message: "Internal Server Error" });
   }
 });
 
@@ -31,10 +31,10 @@ routes.delete("/messange/:id", async (req, res) => {
     await messange.remove();
 
     return res.send({
-      message: "Messanges removido com sucesso!"
+      message: `Aviso \"${messange.title}\" removido com sucesso!`
     });
   } catch (err) {
-    return res.status(400).send({ error: "Error deleting post", err });
+    return res.status(400).send({ error: err, message: "Internal Server Error" });
   }
 });
 
@@ -44,7 +44,7 @@ routes.get("/messange/:id", async (req, res) => {
 
     return res.json(messange);
   } catch (err) {
-    return res.status(400).send({ error: "Error deleting post" });
+    return res.status(400).send({ error: err, message: "Internal Server Error" });
   }
 });
 
