@@ -12,6 +12,9 @@ routes.post("/messanges", async (req, res) => {
   try {
     const { title, body } = req.body;
 
+    console.log(title, body);
+    console.log(req.body);
+
     const messange = await Messanges.create({
       title,
       body
