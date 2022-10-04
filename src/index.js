@@ -42,6 +42,10 @@ io.on("connection", (socket) => {
   socket.on("deleteTodo", () => {
     socket.broadcast.emit("deleteTodo", "deleteTodo");
   });
+
+  socket.on("login", (user) => {
+    socket.broadcast.emit("login", user);
+  });
 });
 
 app.listen(process.env.PORT || 4000, () => {
