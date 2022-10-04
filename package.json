@@ -17,6 +17,7 @@
     "mongoose": "^6.6.0",
     "morgan": "^1.10.0",
     "request": "^2.88.2",
+    "socket.io": "^4.5.2",
     "yarn-upgrade-all": "^0.7.1"
   },
   "devDependencies": {
