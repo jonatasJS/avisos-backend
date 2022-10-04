@@ -10,11 +10,12 @@ routes.get("/messanges", async (req, res) => {
 
 routes.post("/messanges", async (req, res) => {
   try {
-    const { title, body } = req.body;
+    const { title, body, createdBy } = req.body;
 
     const messange = await Messanges.create({
       title,
-      body
+      body,
+      createdBy
     });
 
     return res.json(messange);
