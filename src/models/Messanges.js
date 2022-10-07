@@ -17,6 +17,14 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  editedAt: {
+    type: Date,
+    required: false
+  },
+  editedBy: {
+    type: String,
+    required: false
+  }
 });
 
 module.exports = mongoose.model("messanges", PostSchema);

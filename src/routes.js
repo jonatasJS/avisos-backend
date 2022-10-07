@@ -15,13 +15,15 @@ routes.post("/messanges", async (req, res) => {
     const messange = await Messanges.create({
       title,
       body,
-      createdBy
+      createdBy,
     });
 
     return res.json(messange);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: err, message: "Internal Server Error" });
+    return res
+      .status(500)
+      .json({ error: err, message: "Internal Server Error" });
   }
 });
 
@@ -32,10 +34,12 @@ routes.delete("/messange/:id", async (req, res) => {
     await messange.remove();
 
     return res.send({
-      message: `Aviso \"${messange.title}\" removido com sucesso!`
+      message: `Aviso \"${messange.title}\" removido com sucesso!`,
     });
   } catch (err) {
-    return res.status(400).send({ error: err, message: "Internal Server Error" });
+    return res
+      .status(400)
+      .send({ error: err, message: "Internal Server Error" });
   }
 });
 
@@ -45,7 +49,30 @@ routes.get("/messange/:id", async (req, res) => {
 
     return res.json(messange);
   } catch (err) {
-    return res.status(400).send({ error: err, message: "Internal Server Error" });
+    return res
+      .status(400)
+      .send({ error: err, message: "Internal Server Error" });
+  }
+});
+
+routes.put("/messange/:id", async (req, res) => {
+  try {
+    const messange = await Messanges.findById(req.params.id);
+
+    const { title, body, editedBy } = req.body;
+
+    messange.title = title;
+    messange.body = body;
+    messange.editedAt = Date.now();
+    messange.editedBy = editedBy;
+
+    await messange.save();
+
+    return res.json(messange);
+  } catch (err) {
+    return res
+      .status(400)
+      .send({ error: err, message: "Internal Server Error" });
   }
 });
 
