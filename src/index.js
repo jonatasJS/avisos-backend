@@ -36,11 +36,12 @@ expressApp.use(require("./routes"));
 
 io.on("connection", (socket) => {
   socket.on("addNewTodo", (data) => {
+    console.log(Date.now(), data);
     socket.broadcast.emit("addNewTodo", data);
   });
 
-  socket.on("deleteTodo", () => {
-    socket.broadcast.emit("deleteTodo", "deleteTodo");
+  socket.on("deleteTodo", (data) => {
+    socket.broadcast.emit("deleteTodo", data);
   });
 
   socket.on("login", (user) => {
