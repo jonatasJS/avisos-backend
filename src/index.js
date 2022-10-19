@@ -35,8 +35,8 @@ expressApp.use(express.static(path.resolve(__dirname, "..", "public")));
 expressApp.use(require("./routes"));
 
 io.on("connection", (socket) => {
-  socket.on("addNewTodo", () => {
-    socket.broadcast.emit("addNewTodo", "addNewTodo");
+  socket.on("addNewTodo", (data) => {
+    socket.broadcast.emit("addNewTodo", data);
   });
 
   socket.on("deleteTodo", () => {
