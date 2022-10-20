@@ -52,6 +52,6 @@ io.on("connection", (socket) => {
 app.listen(process.env.PORT || 4000, () => {
   console.clear();
   console.log(
-    `Server started on port ${String(process.env.APP_URL).replace(`4000/`, '')}${process.env.PORT || 4000}/`
+    `Server started on port ${process.env.PORT || 4000}/`
   );
 });
