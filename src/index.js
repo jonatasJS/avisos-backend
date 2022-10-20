@@ -49,7 +49,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.listen(443 || process.env.PORT || 4000, () => {
+app.listen(process.env.PORT || 4000, () => {
   console.clear();
   console.log(
     `Server started on port ${process.env.PORT || 4000}/`
