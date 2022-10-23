@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+console.log(process.env.PORT || 3000);
+
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
