@@ -79,6 +79,8 @@ routes.put("/messange/:id", async (req, res) => {
       validateBeforeSave: true
     });
 
+    console.log(messange);
+
     return res.json(messange);
   } catch (err) {
     return res
