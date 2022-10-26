@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+console.log(process.env.PORT || 3000);
+
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
@@ -49,9 +51,9 @@ io.on("connection", (socket) => {
   });
 });
 
-app.listen(process.env.PORT || 4000, () => {
+app.listen(process.env.PORT || 80, () => {
   console.clear();
   console.log(
-    `Server started on port ${String(process.env.APP_URL).replace(`4000/`, '')}${process.env.PORT || 4000}/`
+    `Server started on port ${process.env.PORT || 80}/`
   );
 });

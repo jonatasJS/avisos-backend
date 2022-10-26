@@ -61,12 +61,25 @@ routes.put("/messange/:id", async (req, res) => {
 
     const { title, body, editedBy } = req.body;
 
-    messange.title = title;
-    messange.body = body;
+    console.log({
+      title,
+      body,
+      editedBy,
+      messange
+    });
+
+    title != "" && (messange.title = title);
+    body != "" && (messange.body = body);
     messange.editedAt = Date.now();
     messange.editedBy = editedBy;
 
-    await messange.save();
+    console.log(messange);
+
+    await messange.save({
+      validateBeforeSave: true
+    });
+
+    console.log(messange);
 
     return res.json(messange);
   } catch (err) {
