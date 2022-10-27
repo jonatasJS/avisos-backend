@@ -1,10 +1,8 @@
 require("dotenv").config();
 
-console.log(process.env.PORT || 3000);
-
 const express = require("express");
-const https = require("https");
-const fs = require("fs");
+// const https = require("https");
+// const fs = require("fs");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const socket = require("socket.io");
@@ -27,7 +25,7 @@ const cors = require("cors");
 // };
 
 const expressApp = express();
-const app = require('https').createServer(/* options,*/ expressApp);
+const app = require('http').createServer(/* options,*/ expressApp);
 const io = socket(app);
 
 
