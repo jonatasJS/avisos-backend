@@ -51,9 +51,9 @@ io.on("connection", (socket) => {
   });
 });
 
-app.listen(process.env.PORT || 80, () => {
+app.listen(80, () => {
   console.clear();
   console.log(
-    `Server started on port ${process.env.PORT || 80}/`
+    `Server started on port ${80}/`
   );
 });
