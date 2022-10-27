@@ -46,6 +46,10 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("deleteTodo", data);
   });
 
+  socket.on("editTodo", (data) => {
+    socket.broadcast.emit("editTodo", data);
+  });
+
   socket.on("login", (user) => {
     socket.broadcast.emit("login", user);
   });
