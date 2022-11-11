@@ -27,4 +27,4 @@ const PostSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("messanges", PostSchema);
+module.exports = mongoose.model("messages", PostSchema);

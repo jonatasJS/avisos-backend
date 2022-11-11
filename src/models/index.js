@@ -1,5 +1,5 @@
-const Messanges = require("./Messanges");
+const messages = require("./Messages");
 
 module.exports = {
-  Messanges,
+  messages,
 };
