@@ -1,24 +1,24 @@
 const routes = require("express").Router();
 
-const { Messanges } = require("./models");
+const { messages } = require("./models");
 
-routes.get("/messanges", async (req, res) => {
-  const messanges = await Messanges.find();
+routes.get("/messages", async (req, res) => {
+  const messages = await messages.find();
 
-  return res.json(messanges);
+  return res.json(messages);
 });
 
-routes.post("/messanges", async (req, res) => {
+routes.post("/messages", async (req, res) => {
   try {
     const { title, body, createdBy } = req.body;
 
-    const messange = await Messanges.create({
+    const message = await messages.create({
       title,
       body,
       createdBy,
     });
 
-    return res.json(messange);
+    return res.json(message);
   } catch (err) {
     console.log(err);
     return res
@@ -27,14 +27,14 @@ routes.post("/messanges", async (req, res) => {
   }
 });
 
-routes.delete("/messange/:id", async (req, res) => {
+routes.delete("/message/:id", async (req, res) => {
   try {
-    const messange = await Messanges.findById(req.params.id);
+    const message = await messages.findById(req.params.id);
 
-    await messange.remove();
+    await message.remove();
 
     return res.send({
-      message: `Aviso \"${messange.title}\" removido com sucesso!`,
+      message: `Aviso \"${message.title}\" removido com sucesso!`,
     });
   } catch (err) {
     return res
@@ -43,11 +43,11 @@ routes.delete("/messange/:id", async (req, res) => {
   }
 });
 
-routes.get("/messange/:id", async (req, res) => {
+routes.get("/message/:id", async (req, res) => {
   try {
-    const messange = await Messanges.findById(req.params.id);
+    const message = await messages.findById(req.params.id);
 
-    return res.json(messange);
+    return res.json(message);
   } catch (err) {
     return res
       .status(400)
@@ -55,20 +55,33 @@ routes.get("/messange/:id", async (req, res) => {
   }
 });
 
-routes.put("/messange/:id", async (req, res) => {
+routes.put("/message/:id", async (req, res) => {
   try {
-    const messange = await Messanges.findById(req.params.id);
+    const message = await messages.findById(req.params.id);
 
     const { title, body, editedBy } = req.body;
 
-    messange.title = title;
-    messange.body = body;
-    messange.editedAt = Date.now();
-    messange.editedBy = editedBy;
+    console.log({
+      title,
+      body,
+      editedBy,
+      message
+    });
 
-    await messange.save();
+    title != "" && (message.title = title);
+    body != "" && (message.body = body);
+    message.editedAt = Date.now();
+    message.editedBy = editedBy;
 
-    return res.json(messange);
+    console.log(message);
+
+    await message.save({
+      validateBeforeSave: true
+    });
+
+    console.log(message);
+
+    return res.json(message);
   } catch (err) {
     return res
       .status(400)

@@ -1,14 +1,31 @@
 require("dotenv").config();
 
 const express = require("express");
+// const https = require("https");
+const fs = require("fs");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const socket = require("socket.io");
 const path = require("path");
 const cors = require("cors");
 
+// ssl certificate
+// ca_bundle.crt
+// certificater.crt
+const options = {
+  ca: fs.readFileSync("ca_bundle.crt", {
+    encoding: "utf-8",
+  }),
+  cert: fs.readFileSync("certificate.crt", {
+    encoding: "utf-8",
+  }),
+  key: fs.readFileSync("private.key", {
+    encoding: "utf-8",
+  }), 
+};
+
 const expressApp = express();
-const app = require('http').createServer(expressApp);
+const app = require('https').createServer(options, expressApp);
 const io = socket(app);
 
 
@@ -44,14 +61,18 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("deleteTodo", data);
   });
 
+  socket.on("editTodo", (data) => {
+    socket.broadcast.emit("editTodo", data);
+  });
+
   socket.on("login", (user) => {
     socket.broadcast.emit("login", user);
   });
 });
 
-app.listen(process.env.PORT || 4000, () => {
+app.listen(443, () => {
   console.clear();
   console.log(
-    `Server started on port ${process.env.PORT || 4000}/`
+    `Server started on port ${443}/`
   );
 });
