@@ -1,18 +1,18 @@
 const routes = require("express").Router();
 
-const { Messanges } = require("./models");
+const { messages } = require("./models");
 
-routes.get("/messanges", async (req, res) => {
-  const messanges = await Messanges.find();
+routes.get("/messages", async (req, res) => {
+  const messages = await messages.find();
 
-  return res.json(messanges);
+  return res.json(messages);
 });
 
-routes.post("/messanges", async (req, res) => {
+routes.post("/messages", async (req, res) => {
   try {
     const { title, body, createdBy } = req.body;
 
-    const messange = await Messanges.create({
+    const messange = await messages.create({
       title,
       body,
       createdBy,
@@ -29,7 +29,7 @@ routes.post("/messanges", async (req, res) => {
 
 routes.delete("/messange/:id", async (req, res) => {
   try {
-    const messange = await Messanges.findById(req.params.id);
+    const messange = await messages.findById(req.params.id);
 
     await messange.remove();
 
@@ -45,7 +45,7 @@ routes.delete("/messange/:id", async (req, res) => {
 
 routes.get("/messange/:id", async (req, res) => {
   try {
-    const messange = await Messanges.findById(req.params.id);
+    const messange = await messages.findById(req.params.id);
 
     return res.json(messange);
   } catch (err) {
@@ -57,7 +57,7 @@ routes.get("/messange/:id", async (req, res) => {
 
 routes.put("/messange/:id", async (req, res) => {
   try {
-    const messange = await Messanges.findById(req.params.id);
+    const messange = await messages.findById(req.params.id);
 
     const { title, body, editedBy } = req.body;
 
