@@ -2,23 +2,23 @@ const routes = require("express").Router();
 
 const { messages } = require("./models");
 
-routes.get("/messanges", async (req, res) => {
-  const messagesResponse = await messages.find();
+routes.get("/messages", async (req, res) => {
+  const messages = await messages.find();
 
-  return res.json(messagesResponse);
+  return res.json(messages);
 });
 
-routes.post("/messanges", async (req, res) => {
+routes.post("/messages", async (req, res) => {
   try {
     const { title, body, createdBy } = req.body;
 
-    const messagesResponse = await messages.create({
+    const messange = await messages.create({
       title,
       body,
       createdBy,
     });
 
-    return res.json(messagesResponse);
+    return res.json(messange);
   } catch (err) {
     console.log(err);
     return res
@@ -27,14 +27,14 @@ routes.post("/messanges", async (req, res) => {
   }
 });
 
-routes.delete("/messanges/:id", async (req, res) => {
+routes.delete("/messange/:id", async (req, res) => {
   try {
-    const messagesResponse = await messages.findById(req.params.id);
+    const messange = await messages.findById(req.params.id);
 
-    await messagesResponse.remove();
+    await messange.remove();
 
     return res.send({
-      message: `Aviso \"${messagesResponse.title}\" removido com sucesso!`,
+      message: `Aviso \"${messange.title}\" removido com sucesso!`,
     });
   } catch (err) {
     return res
@@ -43,11 +43,11 @@ routes.delete("/messanges/:id", async (req, res) => {
   }
 });
 
-routes.get("/messanges/:id", async (req, res) => {
+routes.get("/messange/:id", async (req, res) => {
   try {
-    const messagesResponse = await messages.findById(req.params.id);
+    const messange = await messages.findById(req.params.id);
 
-    return res.json(messagesResponse);
+    return res.json(messange);
   } catch (err) {
     return res
       .status(400)
@@ -55,9 +55,9 @@ routes.get("/messanges/:id", async (req, res) => {
   }
 });
 
-routes.put("/messanges/:id", async (req, res) => {
+routes.put("/messange/:id", async (req, res) => {
   try {
-    const messagesResponse = await messages.findById(req.params.id);
+    const messange = await messages.findById(req.params.id);
 
     const { title, body, editedBy } = req.body;
 
@@ -65,23 +65,23 @@ routes.put("/messanges/:id", async (req, res) => {
       title,
       body,
       editedBy,
-      messagesResponse
+      messange
     });
 
-    title != "" && (messagesResponse.title = title);
-    body != "" && (messagesResponse.body = body);
-    messagesResponse.editedAt = Date.now();
-    messagesResponse.editedBy = editedBy;
+    title != "" && (messange.title = title);
+    body != "" && (messange.body = body);
+    messange.editedAt = Date.now();
+    messange.editedBy = editedBy;
 
-    console.log(messagesResponse);
+    console.log(messange);
 
-    await messagesResponse.save({
+    await messange.save({
       validateBeforeSave: true
     });
 
-    console.log(messagesResponse);
+    console.log(messange);
 
-    return res.json(messagesResponse);
+    return res.json(messange);
   } catch (err) {
     return res
       .status(400)
