@@ -2,13 +2,13 @@ const routes = require("express").Router();
 
 const { messages } = require("./models");
 
-routes.get("/messages", async (req, res) => {
+routes.get("/messanges", async (req, res) => {
   const messagesResponse = await messages.find();
 
   return res.json(messagesResponse);
 });
 
-routes.post("/messages", async (req, res) => {
+routes.post("/messanges", async (req, res) => {
   try {
     const { title, body, createdBy } = req.body;
 
@@ -27,7 +27,7 @@ routes.post("/messages", async (req, res) => {
   }
 });
 
-routes.delete("/messange/:id", async (req, res) => {
+routes.delete("/messanges/:id", async (req, res) => {
   try {
     const messagesResponse = await messages.findById(req.params.id);
 
@@ -43,7 +43,7 @@ routes.delete("/messange/:id", async (req, res) => {
   }
 });
 
-routes.get("/messange/:id", async (req, res) => {
+routes.get("/messanges/:id", async (req, res) => {
   try {
     const messagesResponse = await messages.findById(req.params.id);
 
@@ -55,7 +55,7 @@ routes.get("/messange/:id", async (req, res) => {
   }
 });
 
-routes.put("/messange/:id", async (req, res) => {
+routes.put("/messanges/:id", async (req, res) => {
   try {
     const messagesResponse = await messages.findById(req.params.id);
 
