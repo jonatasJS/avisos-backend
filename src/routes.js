@@ -12,13 +12,13 @@ routes.post("/messages", async (req, res) => {
   try {
     const { title, body, createdBy } = req.body;
 
-    const messange = await messages.create({
+    const message = await messages.create({
       title,
       body,
       createdBy,
     });
 
-    return res.json(messange);
+    return res.json(message);
   } catch (err) {
     console.log(err);
     return res
@@ -27,14 +27,14 @@ routes.post("/messages", async (req, res) => {
   }
 });
 
-routes.delete("/messange/:id", async (req, res) => {
+routes.delete("/message/:id", async (req, res) => {
   try {
-    const messange = await messages.findById(req.params.id);
+    const message = await messages.findById(req.params.id);
 
-    await messange.remove();
+    await message.remove();
 
     return res.send({
-      message: `Aviso \"${messange.title}\" removido com sucesso!`,
+      message: `Aviso \"${message.title}\" removido com sucesso!`,
     });
   } catch (err) {
     return res
@@ -43,11 +43,11 @@ routes.delete("/messange/:id", async (req, res) => {
   }
 });
 
-routes.get("/messange/:id", async (req, res) => {
+routes.get("/message/:id", async (req, res) => {
   try {
-    const messange = await messages.findById(req.params.id);
+    const message = await messages.findById(req.params.id);
 
-    return res.json(messange);
+    return res.json(message);
   } catch (err) {
     return res
       .status(400)
@@ -55,9 +55,9 @@ routes.get("/messange/:id", async (req, res) => {
   }
 });
 
-routes.put("/messange/:id", async (req, res) => {
+routes.put("/message/:id", async (req, res) => {
   try {
-    const messange = await messages.findById(req.params.id);
+    const message = await messages.findById(req.params.id);
 
     const { title, body, editedBy } = req.body;
 
@@ -65,23 +65,23 @@ routes.put("/messange/:id", async (req, res) => {
       title,
       body,
       editedBy,
-      messange
+      message
     });
 
-    title != "" && (messange.title = title);
-    body != "" && (messange.body = body);
-    messange.editedAt = Date.now();
-    messange.editedBy = editedBy;
+    title != "" && (message.title = title);
+    body != "" && (message.body = body);
+    message.editedAt = Date.now();
+    message.editedBy = editedBy;
 
-    console.log(messange);
+    console.log(message);
 
-    await messange.save({
+    await message.save({
       validateBeforeSave: true
     });
 
-    console.log(messange);
+    console.log(message);
 
-    return res.json(messange);
+    return res.json(message);
   } catch (err) {
     return res
       .status(400)
