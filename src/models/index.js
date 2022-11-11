@@ -1,4 +1,4 @@
-const Messages = require("./Messages");
+const Messages = require("./Messanges");
 
 module.exports = {
   Messages,
