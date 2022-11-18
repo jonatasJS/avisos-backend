@@ -52,6 +52,8 @@ expressApp.use(express.static(path.resolve(__dirname, "..", "public")));
 expressApp.use(require("./routes"));
 
 io.on("connection", (socket) => {
+  const users = [];
+
   socket.on("addNewTodo", (data) => {
     socket.broadcast.emit("addNewTodo", data); 
   });
@@ -65,16 +67,16 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("editTodo", data);
   });
 
-  socket.on("login", (user) => {
-    socket.broadcast.emit("login", user);
+  // salva os sockets online no momento de login
+  socket.on("login", (data) => {
+    users.push(data);
+    socket.broadcast.emit("login", data);
+    // mandar para o socket que fez o login os usuários online
+    socket.emit("usersOnline", users);
   });
 
   socket.on("logout", (user) => {
     socket.broadcast.emit("logout", user);
-  });
-
-  socket.on("userOnline", (user) => {
-    socket.broadcast.emit("userOnline", user);
   });
 });
 
