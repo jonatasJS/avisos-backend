@@ -81,7 +81,7 @@ io.on("connection", (socket) => {
 });
 
 app.listen(443, () => {
-  console.clear();
+  ;
   console.log(
     `Server started on port ${443}/`
   );
