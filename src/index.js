@@ -68,6 +68,14 @@ io.on("connection", (socket) => {
   socket.on("login", (user) => {
     socket.broadcast.emit("login", user);
   });
+
+  socket.on("logout", (user) => {
+    socket.broadcast.emit("logout", user);
+  });
+
+  socket.on("userOnline", (user) => {
+    socket.broadcast.emit("userOnline", user);
+  });
 });
 
 app.listen(443, () => {
