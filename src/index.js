@@ -72,7 +72,17 @@ io.on("connection", (socket) => {
     users.push(data);
     socket.broadcast.emit("login", data);
     // mandar para o socket que fez o login os usuários online
-    socket.emit("usersOnline", users);
+    socket.broadcast.emit("usersOnline", users);
+  });
+
+  socket.on("usersOnline", (data) => {
+    socket.broadcast.emit("usersOnline", users);
+  });
+
+  // remove os sockets offline no momento de logout
+  socket.on("logout", (data) => {
+    users.splice(users.indexOf(data), 1);
+    socket.broadcast.emit("logout", data);
   });
 
   socket.on("logout", (user) => {
