@@ -21,7 +21,7 @@ const options = {
   }),
   key: fs.readFileSync("private.key", {
     encoding: "utf-8",
-  }), 
+  }),
 };
 
 const expressApp = express();
@@ -55,7 +55,7 @@ io.on("connection", (socket) => {
   const users = [];
 
   socket.on("addNewTodo", (data) => {
-    socket.broadcast.emit("addNewTodo", data); 
+    socket.broadcast.emit("addNewTodo", data);
   });
 
   socket.on("deleteTodo", (data) => {
@@ -65,6 +65,10 @@ io.on("connection", (socket) => {
 
   socket.on("editTodo", (data) => {
     socket.broadcast.emit("editTodo", data);
+  });
+
+  socket.on("refreshHome", (data) => {
+    socket.broadcast.emit("refreshHome", data);
   });
 
   // salva os sockets online no momento de login
