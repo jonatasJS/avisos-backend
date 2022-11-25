@@ -68,6 +68,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("refreshHome", (data) => {
+    console.log(Date.now(), data);
     socket.broadcast.emit("refreshHome", data);
   });
 
