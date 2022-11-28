@@ -76,8 +76,10 @@ io.on("connection", (socket) => {
   socket.on("login", (data) => {
     users.push(data);
     socket.broadcast.emit("login", data);
+    socket.emit("login", data);
     // mandar para o socket que fez o login os usuários online
     socket.broadcast.emit("usersOnline", users);
+    socket.emit("usersOnline", users);
 
     console.log("users", users);
     console.log("data", data);
