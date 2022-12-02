@@ -54,8 +54,6 @@ expressApp.use(require("./routes"));
 io.on("connection", (socket) => {
   const users = [];
 
-  io.emit("login", socket.data);
-
   socket.on("addNewTodo", (data) => {
     socket.broadcast.emit("addNewTodo", data);
   });
