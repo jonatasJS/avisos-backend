@@ -79,10 +79,12 @@ io.on("connection", (socket) => {
     !validate ? console.log(data) : console.log(validate);
     socket.data.name = data;
     socket.broadcast.emit("login", data);
+    socket.emit("login", data);
     // io.emit("login", data);
     // mandar para o socket que fez o login os usuários online
     socket.broadcast.emit("usersOnline", users);
-    io.emit("usersOnline", users);
+    socket.emit("usersOnline", users);
+    // io.emit("usersOnline", users);
 
     console.log("users", users);
     console.log("data", data);
