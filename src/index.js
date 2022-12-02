@@ -73,10 +73,11 @@ io.on("connection", (socket) => {
   });
 
   // salva os sockets online no momento de login
-  socket.on("login", (data) => {
-    const validate = users.includes(data);
-    !validate && users.push(data);
-    !validate && console.log(data);
+  socket.on("login", async (data) => {
+    await users.forEach(async e => {
+      if(e == data ) return;
+      else await users.push(data);
+    });
     socket.data.name = data;
     socket.broadcast.emit("login", data);
     // io.emit("login", data);
