@@ -109,7 +109,7 @@ io.on("connection", (socket) => {
     users.splice(users.indexOf(socket.data.name), 1);
 
     console.log("users", users);
-    console.log("data", data);
+    console.log("data", socket.data);
 
     socket.broadcast.emit("logout", socket.data.name);
   });
