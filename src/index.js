@@ -80,7 +80,7 @@ io.on("connection", (socket) => {
     socket.data.name = data;
     // socket.broadcast.emit("login", data);
     // socket.emit("login", data);
-    io.emit("login", {data, users});
+    io.emit("login", ({ data, users }));
     // mandar para o socket que fez o login os usuários online
     // socket.broadcast.emit("usersOnline", users);
     // socket.emit("usersOnline", users);
@@ -109,7 +109,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on('disconnect', () => {
-    
+
     users.splice(users.indexOf(socket.data.name), 1);
 
     console.log("users", users);
