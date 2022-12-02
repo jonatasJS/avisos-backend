@@ -74,8 +74,9 @@ io.on("connection", (socket) => {
 
   // salva os sockets online no momento de login
   socket.on("login", (data) => {
-    users.push(!users.includes(data) ? data : null);
-    console.log(!users.includes(data) ? data : null)
+    const validate = users.includes(data);
+    users.push(data);
+    console.log({validate});
     socket.data.name = data;
     socket.broadcast.emit("login", data);
     // io.emit("login", data);
