@@ -74,10 +74,10 @@ io.on("connection", (socket) => {
 
   // salva os sockets online no momento de login
   socket.on("login", (data) => {
-    users.push(data);
+    users.push(...users,data);
     socket.data.name = data;
     socket.broadcast.emit("login", data);
-    io.emit("login", data);
+    // io.emit("login", data);
     // mandar para o socket que fez o login os usuários online
     socket.broadcast.emit("usersOnline", users);
     io.emit("usersOnline", users);
@@ -87,7 +87,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("usersOnline", (data) => {
-    socket.broadcast.emit("usersOnline", users);
+    socket.emit("usersOnline", users);
 
     console.log("users", users);
     console.log("data", data);
