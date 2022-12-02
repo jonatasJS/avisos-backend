@@ -28,6 +28,7 @@ const expressApp = express();
 const app = require('https').createServer(options, expressApp);
 const io = socket(app);
 
+const users = [];
 
 /**
  * Database setup
@@ -52,7 +53,6 @@ expressApp.use(express.static(path.resolve(__dirname, "..", "public")));
 expressApp.use(require("./routes"));
 
 io.on("connection", (socket) => {
-  const users = [];
 
   socket.on("addNewTodo", (data) => {
     socket.broadcast.emit("addNewTodo", data);
@@ -74,7 +74,7 @@ io.on("connection", (socket) => {
 
   // salva os sockets online no momento de login
   socket.on("login", (data) => {
-    users.push(...users,data);
+    users.push(data);
     socket.data.name = data;
     socket.broadcast.emit("login", data);
     // io.emit("login", data);
