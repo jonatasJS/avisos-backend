@@ -73,22 +73,19 @@ io.on("connection", (socket) => {
   });
 
   // salva os sockets online no momento de login
-  socket.on("login", async (data) => {
-    await users.forEach(async e => {
-      if (e == data) return;
-      else {
-        await users.push(data);
-        socket.data.name = data;
-        socket.broadcast.emit("login", data);
-        // io.emit("login", data);
-        // mandar para o socket que fez o login os usuários online
-        socket.broadcast.emit("usersOnline", users);
-        io.emit("usersOnline", users);
+  socket.on("login", (data) => {
+    const validate = users.includes(data);
+    !validate && users.push(data);
+    !validate ? console.log(data) : console.log(validate);
+    socket.data.name = data;
+    socket.broadcast.emit("login", data);
+    // io.emit("login", data);
+    // mandar para o socket que fez o login os usuários online
+    socket.broadcast.emit("usersOnline", users);
+    io.emit("usersOnline", users);
 
-        console.log("users", users);
-        console.log("data", data);
-      }
-    });
+    console.log("users", users);
+    console.log("data", data);
   });
 
   socket.on("usersOnline", (data) => {
@@ -110,7 +107,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on('disconnect', () => {
-
+    
     users.splice(users.indexOf(socket.data.name), 1);
 
     console.log("users", users);
