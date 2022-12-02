@@ -75,6 +75,7 @@ io.on("connection", (socket) => {
   // salva os sockets online no momento de login
   socket.on("login", (data) => {
     users.push(data);
+    socket.data.name = data;
     socket.broadcast.emit("login", data);
     io.emit("login", data);
     // mandar para o socket que fez o login os usuários online
@@ -94,12 +95,23 @@ io.on("connection", (socket) => {
 
   // remove os sockets offline no momento de logout
   socket.on("logout", (data) => {
+    console.log(data)
     users.splice(users.indexOf(data), 1);
 
     console.log("users", users);
     console.log("data", data);
 
     socket.broadcast.emit("logout", data);
+  });
+
+  socket.on('disconnect', () => {
+    
+    users.splice(users.indexOf(socket.data.name), 1);
+
+    console.log("users", users);
+    console.log("data", data);
+
+    socket.broadcast.emit("logout", socket.data.name);
   });
 });
 
