@@ -12,20 +12,20 @@ const cors = require("cors");
 // ssl certificate
 // ca_bundle.crt
 // certificater.crt
-const options = {
-  ca: fs.readFileSync("ca_bundle.crt", {
-    encoding: "utf-8",
-  }),
-  cert: fs.readFileSync("certificate.crt", {
-    encoding: "utf-8",
-  }),
-  key: fs.readFileSync("private.key", {
-    encoding: "utf-8",
-  }),
-};
+// const options = {
+//   ca: fs.readFileSync("ca_bundle.crt", {
+//     encoding: "utf-8",
+//   }),
+//   cert: fs.readFileSync("certificate.crt", {
+//     encoding: "utf-8",
+//   }),
+//   key: fs.readFileSync("private.key", {
+//     encoding: "utf-8",
+//   }),
+// };
 
 const expressApp = express();
-const app = require('http')//.createServer(options, expressApp);
+const app = require('http').createServer({}, expressApp);
 const io = socket(app);
 
 const users = [];
@@ -119,8 +119,8 @@ io.on("connection", (socket) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(
-    `Server started on port ${443}/`
+    `Server started on port ${process.env.PORT || 3000}/`
   );
 });
