@@ -25,7 +25,7 @@ const options = {
 };
 
 const expressApp = express();
-const app = require('https').createServer(options, expressApp);
+const app = require('http')//.createServer(options, expressApp);
 const io = socket(app);
 
 const users = [];
@@ -119,7 +119,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.listen(443, () => {
+app.listen(process.env.PORT, () => {
   ;
   console.log(
     `Server started on port ${443}/`
