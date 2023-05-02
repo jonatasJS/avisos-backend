@@ -10,12 +10,13 @@ routes.get("/messages", async (req, res) => {
 
 routes.post("/messages", async (req, res) => {
   try {
-    const { title, body, createdBy } = req.body;
+    const { title, body, createdBy, screenTime } = req.body;
 
     const messange = await Messages.create({
       title,
       body,
       createdBy,
+      screenTime
     });
 
     return res.json(messange);
@@ -59,13 +60,14 @@ routes.put("/messange/:id", async (req, res) => {
   try {
     const messange = await Messages.findById(req.params.id);
 
-    const { title, body, editedBy } = req.body;
+    const { title, body, editedBy, screenTime } = req.body;
 
     console.log({
       title,
       body,
       editedBy,
-      messange
+      messange,
+      screenTime
     });
 
     title != "" && (messange.title = title);

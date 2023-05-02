@@ -9,6 +9,11 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  screenTime: {
+    type: Number,
+    default: 30000,
+    required: false
+  },
   createdAt: {
     type: Date,
     default: Date.now,
