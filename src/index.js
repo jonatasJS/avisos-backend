@@ -25,7 +25,7 @@ const options = {
 };
 
 const expressApp = express();
-const app = require('https').createServer(options, expressApp);
+const app = require('http').createServer(/*options,*/{}, expressApp);
 const io = socket(app);
 
 
@@ -90,6 +90,10 @@ io.on("connection", (socket) => {
     console.log("data", data);
   });
 
+  socket.on("changeTime", time => {
+    socket.broadcast.emit("changeTime", time)
+  })
+
   // remove os sockets offline no momento de logout
   socket.on("logout", (data) => {
     users.splice(users.indexOf(data), 1);
@@ -101,9 +105,9 @@ io.on("connection", (socket) => {
   });
 });
 
-app.listen(443, () => {
+app.listen(process.env.PORT || 8181, () => {
   ;
   console.log(
-    `Server started on port ${443}/`
+    `Server started on port ${process.env.PORT || 8181}/`
   );
 });

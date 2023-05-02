@@ -1,6 +1,6 @@
 const routes = require("express").Router();
 
-const { Messages } = require("./models");
+const { Messages, ScreenTime } = require("./models");
 
 routes.get("/messages", async (req, res) => {
   const messages = await Messages.find();
@@ -60,15 +60,7 @@ routes.put("/messange/:id", async (req, res) => {
   try {
     const messange = await Messages.findById(req.params.id);
 
-    const { title, body, editedBy, screenTime } = req.body;
-
-    console.log({
-      title,
-      body,
-      editedBy,
-      messange,
-      screenTime
-    });
+    const { title, body, editedBy } = req.body;
 
     title != "" && (messange.title = title);
     body != "" && (messange.body = body);
@@ -88,6 +80,39 @@ routes.put("/messange/:id", async (req, res) => {
     return res
       .status(400)
       .send({ error: err, message: "Internal Server Error" });
+  }
+});
+
+routes.get("/screentime", async (req, res) => {
+  const {time} = await ScreenTime.findById("645181b3dc27cc8e13208683");
+
+  return res.json(time);
+});
+
+routes.post("/screentime", async (req, res) => {
+  try {
+    const TimeData = await ScreenTime.findById("645181b3dc27cc8e13208683");
+    const { time } = req.body;
+
+    // const data = ScreenTime.create({
+    //   time: newTime
+    // })
+    TimeData.time = await time;
+
+    TimeData.save({
+      validateBeforeSave: true
+    });
+
+    return res.json({
+      message: "Success",
+      // data
+      TimeData
+    });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(500)
+      .json({ error: err, message: "Internal Server Error" });
   }
 });
 
