@@ -48,9 +48,9 @@ expressApp.use(cors({
 expressApp.use(express.json());
 expressApp.use(express.urlencoded({ extended: true }));
 expressApp.use(morgan("dev"));
-expressApp.use(express.static(path.resolve(__dirname, "..", "public")));
+expressApp.use(express.static(path.resolve(__dirname, "public")));
 
-expressApp.use(require("./routes"));
+expressApp.use(require("./src/routes"));
 
 io.on("connection", (socket) => {
 
@@ -97,10 +97,6 @@ io.on("connection", (socket) => {
     console.log("data", data);
   });
 
-  socket.on("changeTime", time => {
-    socket.broadcast.emit("changeTime", time)
-  })
-
   // remove os sockets offline no momento de logout
   socket.on("logout", (data) => {
     console.log(data)
@@ -123,8 +119,8 @@ io.on("connection", (socket) => {
   });
 });
 
-app.listen(process.env.PORT || 8181, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(
-    `Server started on port ${process.env.PORT || 8181}/`
+    `Server started on port ${process.env.PORT || 3000}/`
   );
 });
